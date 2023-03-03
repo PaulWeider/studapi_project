@@ -25,6 +25,7 @@ urlpatterns = [
     path('forum/', views.index),
     path('schedule/', views.schedule),
     path('login_an_rgistert-student/', views.login),
+    path('deadlinever3/', views.deadlines),
     path('deadline_v2.0/', views.deadlines),
     path('students', views.load_students),
 ]

@@ -1,0 +1,41 @@
+.container-deadline{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 100px 100px 100px;
+    column-gap:  350px;
+    /* justify-content: center;
+    justify-items: center; */
+}
+
+
+.card-container {
+    width: 400px;
+    height: 300px;
+    margin-top: 120px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 15px -5px;  
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.title{
+    text-align: center;
+  background-color:  #61dafb;
+  height: 50px;
+  padding-top: 12px;
+  font-weight: 700;
+}
+
+.zadanie{
+    text-align: center;
+    height: 50px;
+  padding-top: 70px;
+  font-weight: 600;
+}
+
+.data{
+    text-align: center;
+    height: 50px;
+  padding-top: 70px;
+  font-weight: 600;
+}
