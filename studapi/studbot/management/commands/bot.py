@@ -12,6 +12,7 @@ import telebot
 
 bot = telebot.TeleBot('5612058268:AAF1bx62eOsyQe_jSsZQJmoB03FXs1mg9Yw')
 
+grades = Grades.objects.all()
 students = Students.objects.all()
 schedule_monday = Schedule.objects.filter(dayOfTheWeek="Monday")
 schedule_tuesday = Schedule.objects.filter(dayOfTheWeek="Tuesday")
@@ -66,7 +67,6 @@ def thursday(message):
     bot.send_message(message.chat.id,f'Завтра на тебе чекають такі пари:\n{thursday}\nГарного дня!')
 
 def friday(message):
-    global student_user
     friday = ""
     i = 0
     for schedule in schedule_thursday:
@@ -215,7 +215,22 @@ def mess(message):
         bot.send_message(message.chat.id, 'Обирай день'+ emoji.emojize(":face_with_monocle:")+" Спробую допомогти.", reply_markup=markup)
 
     elif get_message_bot == "подивитися свої оцінки":
-        bot.send_message(message.chat.id, 'Ok!')
+        grades_disc = ""
+        grades_user = Grades.objects.filter(studentId__login=student_user[0].login)
+        list = []
+        for grades_disc_user in grades_user:
+            disc = grades_disc_user.disciplineId.disc_name
+            if disc not in list:
+                one_disc = Grades.objects.filter(disciplineId__disc_name=disc)
+                grades_disc += str(one_disc[0].disciplineId.disc_name) + ": "
+                i = 0
+                for discip in one_disc:
+                    grades_disc += str(discip.value)+ " "
+                    i+=1
+                grades_disc += "\n"
+                list.append(disc)
+
+        bot.send_message(message.chat.id, f'{grades_disc}')
 
 
 bot.polling(non_stop=True)
