@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 class CourseGroups(models.Model):
     courseNumber = models.IntegerField(default=1)
@@ -11,6 +12,7 @@ class CourseGroups(models.Model):
         verbose_name = 'CourseGroup'
         verbose_name_plural = 'CourseGroups'
 
+
 class Discipline(models.Model):
     disc_name = models.CharField(max_length=50)
 
@@ -20,6 +22,7 @@ class Discipline(models.Model):
     class Meta:
         verbose_name = 'Discipline'
         verbose_name_plural = 'Disciplines'
+
 
 class Students(models.Model):
     name = models.CharField(max_length=25)
@@ -37,6 +40,17 @@ class Students(models.Model):
         verbose_name = 'Student'
         verbose_name_plural = 'Students'
 
+
+class Grades(models.Model):
+    studentId = models.ForeignKey(Students, on_delete=models.CASCADE)
+    disciplineId = models.ForeignKey(Discipline, on_delete=models.CASCADE)
+    value = models.IntegerField(validators=[MinValueValidator(0)])
+
+    class Meta:
+        verbose_name = 'Grade'
+        verbose_name_plural = 'Grades'
+
+
 class Schedule(models.Model):
     disciplineId = models.ForeignKey(Discipline, on_delete=models.CASCADE, null=False)
     groupId = models.ForeignKey(CourseGroups, on_delete=models.CASCADE, null=False)
@@ -49,3 +63,27 @@ class Schedule(models.Model):
     class Meta:
         verbose_name = 'Schedule'
         verbose_name_plural = 'Schedules'
+
+
+class AdminProf(models.Model):
+    name = models.CharField(max_length=25)
+    secondName = models.CharField(max_length=25)
+    surname = models.CharField(max_length=25)
+    eMail = models.EmailField(null=True)
+    password = models.CharField(max_length=25)
+
+    def change_password(self, new_password):
+        self.password = new_password
+
+    class Meta:
+        verbose_name = 'Admin'
+        verbose_name_plural = 'Admins'
+
+
+class DisciplineLinks(models.Model):
+    disciplineID = models.ForeignKey(Discipline, on_delete=models.CASCADE)
+    profID = models.ForeignKey(AdminProf, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'DisciplineLink'
+        verbose_name_plural = 'DisciplineLinks'
