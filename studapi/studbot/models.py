@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 
+
 class CourseGroups(models.Model):
     courseNumber = models.IntegerField(default=1)
     identifier = models.CharField(unique=True, max_length=6)

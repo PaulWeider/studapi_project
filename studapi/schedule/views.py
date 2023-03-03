@@ -27,7 +27,8 @@ def load_students(request):
         }
         students_json.append(stud_dict)
 
-    response = JsonResponse({'students':students_json })
+    # response = JsonResponse({'students':students_json })
+    response = JsonResponse(list(Students.objects.values()), safe=False)
     response['Access-Control-Allow-Origin'] = '*'
     return response
 
