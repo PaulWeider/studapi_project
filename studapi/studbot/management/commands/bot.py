@@ -10,7 +10,7 @@ import emoji
 import telebot
 
 
-bot = telebot.TeleBot('5612058268:AAF1bx62eOsyQe_jSsZQJmoB03FXs1mg9Yw')
+bot = telebot.TeleBot('')
 
 grades = Grades.objects.all()
 students = Students.objects.all()
